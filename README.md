@@ -12,7 +12,9 @@ I am, as of February 2026, in my second semester at The Catholic University of A
 This assignment is slowly starting to make me hate AI. Basically I accidentally asked AI to make me a README file after I had already made one. I ended up copy and pasting an older version to fix this issue after the AI could not fix nor tell me how to fix the problem. The most I have used AI on this project, that I am aware of, is the AI summarizer on Brave browser telling me that I can make headings with hash marks.
 
 ## Required Links
--
+README.md
+DESIGN.md
+TESTING.md
 
 ## Projects
 Link to my GitHub profile: https://github.com/berrick-sketch
