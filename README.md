@@ -8,10 +8,13 @@ As of now, this website serves no function other than being a project for school
 ## About Me
 I am, as of February 2026, in my second semester at The Catholic University of America. I have absolutely zero interest in coding (as of 2/26) but consider it an important life skill. I am enrolled in this class because my mom wanted me to take an AI class. I enjoy singing karaoke. I also enjoy having an intact ACL. I hope Dr. Kelley is laughing while reading this.
 
+## AI Usage
+This assignment is slowly starting to make me hate AI. Basically I accidentally asked AI to make me a README file after I had already made one. I ended up copy and pasting an older version to fix this issue after the AI could not fix nor tell me how to fix the problem. The most I have used AI on this project, that I am aware of, is the AI summarizer on Brave browser telling me that I can make headings with hash marks.
+
+## Required Links
+-
+
 ## Projects
 Link to my GitHub profile: https://github.com/berrick-sketch
 
 This is a placeholder entry for Project 1, Part 2: Javascript Game (coming soon)
-
-## AI Usage
-This assignment is slowly starting to make me hate AI. Look at the editing history for more details. The most AI I used on this assignment was looking up how to make a heading, to which the AI summarizer on Brave  browser said that I make a heading with hash marks.
