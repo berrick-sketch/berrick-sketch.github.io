@@ -4,3 +4,4 @@ I did not do multipage because 1) I do not know how, 2) Even if I did, it would 
 
 I included headings corresponding with the headings that I was supposed to make according to the assignment sheet.
 
+I organized the content the way I did because I did not know how to design it any other way. I am not a coder and this class is super confusing. I also made certain design choices because I would have gotten points off the final project had I not made those design choices (i.e. headings). Overall, I am tired right now because it is past 2am and the AI ruined everything by replacing my work with a new document. To conclude, I am not putting more effort into this paragraph because I am tired. I did not put effort into my design choices, I am just trying to get this project done as quickly as possible.
