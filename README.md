@@ -12,3 +12,6 @@ I am, as of February 2026, in my second semester at The Catholic University of A
 Link to my GitHub profile: https://github.com/berrick-sketch
 
 This is a placeholder entry for Project 1, Part 2: Javascript Game (coming soon)
+
+# AI Usage
+This assignment is slowly starting to make me hate AI. Look at the editing history for more details.
