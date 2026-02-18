@@ -14,4 +14,4 @@ Link to my GitHub profile: https://github.com/berrick-sketch
 This is a placeholder entry for Project 1, Part 2: Javascript Game (coming soon)
 
 ## AI Usage
-This assignment is slowly starting to make me hate AI. Look at the editing history for more details.
+This assignment is slowly starting to make me hate AI. Look at the editing history for more details. The most AI I used on this assignment was looking up how to make a heading, to which the AI summarizer on Brave  browser said that I make a heading with hash marks.
