@@ -1,8 +1,8 @@
--I opened the URL to see what it looked like.
+-I opened the URL to see what it looked like. This was how I verified that the link works.
 
--I opened it on both my phone and my laptop to see that it worked on both devices.
+-Further, I opened it on both my phone and my laptop to see that it worked on both devices. It did.
 
--I do not know what a link load is so I did not check for those.
+-Another way in which I checked that the website works was by looking at the "Preview" tab to view the website.
 
 -Broken links? What links?
 
