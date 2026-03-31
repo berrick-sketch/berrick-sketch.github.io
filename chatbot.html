@@ -128,6 +128,32 @@
       background: #fbfdff;
     }
 
+    .choice-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      background: #f9fbff;
+    }
+
+    .choice-btn {
+      border: 1px solid #c8d3ee;
+      background: #fff;
+      color: #2b3a63;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .choice-btn:hover,
+    .choice-btn:focus {
+      background: var(--accent-soft);
+      border-color: #9faff0;
+    }
+
     .msg {
       max-width: 82%;
       padding: 10px 13px;
@@ -297,6 +323,16 @@
       color: #243665;
     }
 
+    .info-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 8px 0 10px;
+      border-radius: 10px;
+      border: 1px solid #dbe5fb;
+      background: #fff;
+    }
+
     .progress {
       margin-top: 8px;
       height: 8px;
@@ -343,6 +379,7 @@
           <p class="status" id="skillStatus">Skill focus: not selected</p>
         </div>
         <div class="chat-window" id="chatWindow"></div>
+        <div class="choice-bar" id="choiceBar"></div>
         <form class="composer" id="chatForm">
           <input id="userInput" type="text" placeholder="Choose a skill, then type your message..." autocomplete="off" required>
           <button type="submit">Send</button>
@@ -375,20 +412,57 @@
           <div class="infographic-grid">
             <article class="info-card">
               <h4>STOP Skill</h4>
-              <p class="small">S: Stop, T: Take a step back, O: Observe, P: Proceed mindfully.</p>
+              <svg viewBox="0 0 300 120" aria-hidden="true">
+                <rect x="10" y="15" width="62" height="90" rx="10" fill="#eef1ff"></rect>
+                <rect x="83" y="15" width="62" height="90" rx="10" fill="#e6fff6"></rect>
+                <rect x="156" y="15" width="62" height="90" rx="10" fill="#fff8e7"></rect>
+                <rect x="229" y="15" width="62" height="90" rx="10" fill="#ffeef5"></rect>
+                <text x="41" y="40" text-anchor="middle" font-size="18" fill="#34427c">S</text>
+                <text x="41" y="62" text-anchor="middle" font-size="10" fill="#34427c">Stop</text>
+                <text x="114" y="40" text-anchor="middle" font-size="18" fill="#23725b">T</text>
+                <text x="114" y="62" text-anchor="middle" font-size="10" fill="#23725b">Step back</text>
+                <text x="187" y="40" text-anchor="middle" font-size="18" fill="#8b6519">O</text>
+                <text x="187" y="62" text-anchor="middle" font-size="10" fill="#8b6519">Observe</text>
+                <text x="260" y="40" text-anchor="middle" font-size="18" fill="#913a5e">P</text>
+                <text x="260" y="62" text-anchor="middle" font-size="10" fill="#913a5e">Proceed</text>
+              </svg>
+              <p class="small">Use STOP in conflict or panic moments to pause and respond intentionally.</p>
             </article>
             <article class="info-card">
               <h4>TIPP Skill</h4>
-              <p class="small">Temperature, Intense exercise, Paced breathing, Paired relaxation.</p>
+              <svg viewBox="0 0 300 120" aria-hidden="true">
+                <line x1="45" y1="90" x2="45" y2="30" stroke="#4a5cc7" stroke-width="8"></line>
+                <circle cx="45" cy="25" r="10" fill="#4a5cc7"></circle>
+                <text x="75" y="38" font-size="12" fill="#304064">Temperature reset</text>
+                <text x="75" y="56" font-size="12" fill="#304064">Short intense movement</text>
+                <text x="75" y="74" font-size="12" fill="#304064">Paced breathing</text>
+                <text x="75" y="92" font-size="12" fill="#304064">Paired relaxation</text>
+              </svg>
+              <p class="small">TIPP helps lower emotional intensity quickly by calming the body first.</p>
             </article>
             <article class="info-card">
               <h4>Emotion Check</h4>
-              <p class="small">Name the emotion and rate intensity 0-10 before and after a skill.</p>
+              <svg viewBox="0 0 300 120" aria-hidden="true">
+                <rect x="20" y="74" width="52" height="26" rx="6" fill="#dce7ff"></rect>
+                <rect x="80" y="58" width="52" height="42" rx="6" fill="#bfd2ff"></rect>
+                <rect x="140" y="44" width="52" height="56" rx="6" fill="#97b3ff"></rect>
+                <rect x="200" y="30" width="52" height="70" rx="6" fill="#6b8dff"></rect>
+                <text x="20" y="20" font-size="11" fill="#304064">Rate intensity before and after skills</text>
+              </svg>
+              <p class="small">Track your emotion rating (0-10) to see if a DBT step is helping.</p>
               <div class="progress"><span style="width: 68%;"></span></div>
             </article>
             <article class="info-card">
               <h4>DEAR MAN</h4>
-              <p class="small">Describe, Express, Assert, Reinforce, Mindful, Appear confident, Negotiate.</p>
+              <svg viewBox="0 0 300 120" aria-hidden="true">
+                <rect x="12" y="16" width="276" height="24" rx="8" fill="#eef0ff"></rect>
+                <rect x="12" y="48" width="276" height="24" rx="8" fill="#e6fff6"></rect>
+                <rect x="12" y="80" width="276" height="24" rx="8" fill="#fff6e9"></rect>
+                <text x="20" y="32" font-size="11" fill="#36467e">Describe + Express + Assert + Reinforce</text>
+                <text x="20" y="64" font-size="11" fill="#226a56">Mindful + Appear confident</text>
+                <text x="20" y="96" font-size="11" fill="#7d5b1a">Negotiate if needed</text>
+              </svg>
+              <p class="small">DEAR MAN helps you ask for needs clearly while keeping respect and boundaries.</p>
             </article>
           </div>
         </section>
@@ -422,11 +496,15 @@
     const chatWindow = document.getElementById("chatWindow");
     const chatForm = document.getElementById("chatForm");
     const userInput = document.getElementById("userInput");
+    const choiceBar = document.getElementById("choiceBar");
     const skillButtons = document.getElementById("skillButtons");
     const clearSkillBtn = document.getElementById("clearSkillBtn");
     const skillStatus = document.getElementById("skillStatus");
 
     let selectedSkill = "";
+    const exhaustionMessage = "I have now used all of my currently programmed responses. Please reset the conversation, choose a new skill, or contact a qualified professional for more personalized support.";
+
+    const usedByPool = new Map();
 
     const skillSuggestions = {
       mindfulness: [
@@ -447,7 +525,8 @@
       "interpersonal effectiveness": [
         "Interpersonal effectiveness prompt: What request do you want to make clearly and respectfully?",
         "Interpersonal effectiveness prompt: Start with DEAR MAN - first, Describe the facts in one sentence.",
-        "Interpersonal effectiveness prompt: What boundary would protect your self-respect in this situation?"
+        "Interpersonal effectiveness prompt: What boundary would protect your self-respect in this situation?",
+        "Interpersonal effectiveness prompt: Do you want to prioritize your objective, relationship, or self-respect in this conversation?"
       ]
     };
 
@@ -458,7 +537,8 @@
           "Thank you for naming that feeling. On a 0-10 scale, how intense is \"$2\" right now?",
           "That sounds difficult. A DBT mindfulness step is to notice \"$2\" without judging it as good or bad.",
           "When \"$2\" shows up, what body signals do you notice first?",
-          "Can you separate facts from interpretations about feeling \"$2\"?"
+          "Can you separate facts from interpretations about feeling \"$2\"?",
+          "If \"$2\" had a message, what might it be trying to signal?"
         ]
       },
       {
@@ -467,7 +547,8 @@
           "For intense stress, DBT distress tolerance suggests paced breathing: in for 4, out for 6, for one minute.",
           "Would a short TIPP skill help: cold water on your face, then 20-30 seconds of brisk movement?",
           "Try grounding with 5-4-3-2-1: name 5 things you see, 4 feel, 3 hear, 2 smell, 1 taste.",
-          "Anxiety can shrink focus. What is one immediate action that keeps you safe and steady?"
+          "Anxiety can shrink focus. What is one immediate action that keeps you safe and steady?",
+          "Would you like to do a 60-second reset now and then re-rate intensity?"
         ]
       },
       {
@@ -476,7 +557,8 @@
           "Strong anger can narrow choices. DBT recommends a STOP pause: Stop, Take a step back, Observe, Proceed mindfully.",
           "Would opposite action fit here: soften your voice, unclench your hands, and step away briefly?",
           "What value do you want to act from in this moment, even with anger present?",
-          "Can you channel this energy into a clear boundary instead of escalation?"
+          "Can you channel this energy into a clear boundary instead of escalation?",
+          "What outcome do you want two hours from now, and which action supports it?"
         ]
       },
       {
@@ -485,7 +567,8 @@
           "I hear that this feels heavy. A DBT emotion regulation step is to do one small mastery task in the next hour.",
           "Could you add one pleasant activity today, even if motivation is low?",
           "What would self-validation sound like right now, in one sentence?",
-          "What support person could you contact today, even briefly?"
+          "What support person could you contact today, even briefly?",
+          "Would a tiny routine (water, shower, short walk, meal) help you regain momentum?"
         ]
       },
       {
@@ -494,7 +577,8 @@
           "It makes sense this feels hard. What is one tiny next step toward \"$2\"?",
           "Could we shift from \"I cannot $2\" to \"I can practice one part of $2\"?",
           "What support or skill would make \"$2\" 10% easier?",
-          "What would a compassionate coach say about \"$2\" right now?"
+          "What would a compassionate coach say about \"$2\" right now?",
+          "Which part of \"$2\" is hardest, and which part feels doable?"
         ]
       },
       {
@@ -503,7 +587,8 @@
           "For relationships, DBT uses DEAR MAN. What is the specific request you want to make?",
           "Can you describe just the facts first (Describe), then your feeling (Express)?",
           "What boundary or need would help this relationship feel safer?",
-          "What is your goal: get objective, keep relationship, or keep self-respect?"
+          "What is your goal: get objective, keep relationship, or keep self-respect?",
+          "What wording could be clear, kind, and still firm?"
         ]
       },
       {
@@ -512,7 +597,8 @@
           "Let us check the facts: what evidence supports this feeling, and what evidence does not?",
           "A DBT self-respect check is FAST: be Fair, no Apologies for existing, Stick to values, be Truthful.",
           "What would you say to a friend feeling this same shame?",
-          "Can both things be true: you made a mistake and you still deserve care?"
+          "Can both things be true: you made a mistake and you still deserve care?",
+          "What is one repair action you can take, and one act of self-kindness today?"
         ]
       },
       {
@@ -520,7 +606,8 @@
         replies: [
           "When things feel unclear, try one step: what is the next smallest decision you can make?",
           "Would it help to list options, then choose the one most aligned with your values?",
-          "What information do you need before taking the next step?"
+          "What information do you need before taking the next step?",
+          "Do you want to map pros/cons quickly before deciding?"
         ]
       },
       {
@@ -528,7 +615,8 @@
         replies: [
           "That is great to hear. How can you reinforce what helped create this feeling?",
           "Can you take a mindful moment to savor this emotion for 20 seconds?",
-          "What skill or habit do you want to keep using since it is helping?"
+          "What skill or habit do you want to keep using since it is helping?",
+          "How can you make this positive state easier to return to tomorrow?"
         ]
       },
       {
@@ -547,7 +635,8 @@
       "Would you like a mindfulness prompt, a distress tolerance skill, or an interpersonal script?",
       "What is one effective action you can take in the next 10 minutes?",
       "Can you validate your feeling and still choose the next skillful step?",
-      "Would you like to focus on body regulation, thoughts, emotions, or communication first?"
+      "Would you like to focus on body regulation, thoughts, emotions, or communication first?",
+      "Would it help to choose from options: calm body, clarify thoughts, improve conversation?"
     ];
 
     const limitationReplies = [
@@ -568,6 +657,41 @@
       return list[Math.floor(Math.random() * list.length)];
     }
 
+    function chooseFresh(poolKey, list) {
+      if (!usedByPool.has(poolKey)) {
+        usedByPool.set(poolKey, new Set());
+      }
+      const used = usedByPool.get(poolKey);
+      if (used.size >= list.length) {
+        return null;
+      }
+      const available = [];
+      for (let i = 0; i < list.length; i += 1) {
+        if (!used.has(i)) {
+          available.push(i);
+        }
+      }
+      const chosenIndex = available[Math.floor(Math.random() * available.length)];
+      used.add(chosenIndex);
+      return list[chosenIndex];
+    }
+
+    function allProgrammedResponsesUsed() {
+      if (Object.keys(skillSuggestions).some((key) => !(usedByPool.get("skill:" + key) || new Set()).size >= skillSuggestions[key].length)) {
+        return false;
+      }
+      if (reflections.some((rule, idx) => !(usedByPool.get("rule:" + idx) || new Set()).size >= rule.replies.length)) {
+        return false;
+      }
+      if (!((usedByPool.get("default") || new Set()).size >= defaultReplies.length)) {
+        return false;
+      }
+      if (!((usedByPool.get("limit") || new Set()).size >= limitationReplies.length)) {
+        return false;
+      }
+      return true;
+    }
+
     function cleanFragment(text) {
       return text.replace(/\s+/g, " ").trim();
     }
@@ -579,6 +703,22 @@
       } else {
         skillStatus.textContent = "Skill focus: not selected";
       }
+      renderChoiceBar();
+    }
+
+    function renderChoiceBar() {
+      const choices = selectedSkill
+        ? ["I feel anxious", "I feel sad", "I feel angry", "Relationship stress", "Give me a coping step", "Show DBT method"]
+        : ["Choose a skill first", "Mindfulness help", "Distress tolerance help", "Emotion regulation help"];
+      choiceBar.innerHTML = "";
+      choices.forEach(function (label) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "choice-btn";
+        btn.textContent = label;
+        btn.setAttribute("data-choice", label);
+        choiceBar.appendChild(btn);
+      });
     }
 
     function shouldUseLimitationResponse(message) {
@@ -599,26 +739,53 @@
       }
 
       if (shouldUseLimitationResponse(message)) {
-        return choose(limitationReplies);
+        return chooseFresh("limit", limitationReplies) || exhaustionMessage;
       }
 
-      if (/^\s*(skill|help|what should i do)\b/i.test(message)) {
-        return choose(skillSuggestions[selectedSkill]);
+      if (/^\s*(skill|help|what should i do|coping step)\b/i.test(message)) {
+        return chooseFresh("skill:" + selectedSkill, skillSuggestions[selectedSkill]) || exhaustionMessage;
+      }
+
+      if (/show dbt method/i.test(message)) {
+        return chooseFresh("skill:" + selectedSkill, skillSuggestions[selectedSkill]) || "Please review the infographic cards on the right for step-by-step DBT methods.";
       }
 
       if (selectedSkill && Math.random() < 0.3) {
-        return choose(skillSuggestions[selectedSkill]);
+        const skillReply = chooseFresh("skill:" + selectedSkill, skillSuggestions[selectedSkill]);
+        if (skillReply) {
+          return skillReply;
+        }
       }
 
-      for (const rule of reflections) {
+      for (let i = 0; i < reflections.length; i += 1) {
+        const rule = reflections[i];
         const match = message.match(rule.pattern);
         if (match) {
-          const template = choose(rule.replies);
+          const template = chooseFresh("rule:" + i, rule.replies);
+          if (!template) {
+            continue;
+          }
           return template.replace(/\$2/g, cleanFragment(match[2] || "that"));
         }
       }
 
-      return choose(defaultReplies);
+      const defaultReply = chooseFresh("default", defaultReplies);
+      if (defaultReply) {
+        return defaultReply;
+      }
+
+      if (allProgrammedResponsesUsed()) {
+        return exhaustionMessage;
+      }
+      return "I am having trouble matching that input. Try one of the quick options below so I can respond more precisely.";
+    }
+
+    function handleUserInput(text) {
+      addMessage("user", text);
+      const response = generateReply(text);
+      setTimeout(function () {
+        addMessage("bot", response);
+      }, 200);
     }
 
     skillButtons.addEventListener("click", function (event) {
@@ -636,24 +803,47 @@
       addMessage("bot", "Skill focus cleared. Please choose a DBT skill before continuing.");
     });
 
+    choiceBar.addEventListener("click", function (event) {
+      const button = event.target.closest("[data-choice]");
+      if (!button) {
+        return;
+      }
+      const choice = button.getAttribute("data-choice");
+      if (choice === "Choose a skill first") {
+        addMessage("bot", "Please choose a DBT skill from the right panel.");
+        return;
+      }
+      if (choice === "Mindfulness help") {
+        setSkill("mindfulness");
+        addMessage("bot", "Skill selected: mindfulness.");
+        return;
+      }
+      if (choice === "Distress tolerance help") {
+        setSkill("distress tolerance");
+        addMessage("bot", "Skill selected: distress tolerance.");
+        return;
+      }
+      if (choice === "Emotion regulation help") {
+        setSkill("emotion regulation");
+        addMessage("bot", "Skill selected: emotion regulation.");
+        return;
+      }
+      handleUserInput(choice);
+    });
+
     chatForm.addEventListener("submit", function (event) {
       event.preventDefault();
       const text = userInput.value.trim();
       if (!text) {
         return;
       }
-
-      addMessage("user", text);
-      const response = generateReply(text);
-
-      setTimeout(function () {
-        addMessage("bot", response);
-      }, 220);
+      handleUserInput(text);
 
       userInput.value = "";
       userInput.focus();
     });
 
+    renderChoiceBar();
     addMessage("bot", "Hello. I am an automated ELIZA-style chatbot, not a human therapist. Please choose a DBT skill to begin.");
   </script>
 </body>
