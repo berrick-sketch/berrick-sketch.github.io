@@ -6,13 +6,15 @@
   <title>Alexandra Berrick | AI 109</title>
   <style>
     :root {
-      --bg: #f4f7fb;
+      --bg: #f5f7ff;
       --card: #ffffff;
-      --text: #1e293b;
-      --muted: #475569;
-      --accent: #0f4c81;
-      --accent-hover: #0b3a63;
-      --border: #dbe3ee;
+      --text: #14213d;
+      --muted: #52607a;
+      --accent: #5b5fef;
+      --accent-hover: #464bd4;
+      --accent-soft: #eef0ff;
+      --border: #d9e1f1;
+      --shadow: 0 22px 48px rgba(36, 45, 83, 0.12);
     }
 
     * {
@@ -21,61 +23,77 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
       color: var(--text);
-      background: linear-gradient(160deg, #eef3fa 0%, #f9fbff 40%, #f3f6fb 100%);
+      background:
+        radial-gradient(circle at 10% 0%, #dde4ff 0%, rgba(221, 228, 255, 0) 38%),
+        radial-gradient(circle at 100% 20%, #d9fff3 0%, rgba(217, 255, 243, 0) 40%),
+        linear-gradient(145deg, #f8f9ff 0%, #f4f8ff 52%, #f6fbff 100%);
       line-height: 1.6;
     }
 
     .container {
-      width: min(960px, 92%);
+      width: min(1060px, 92%);
       margin: 0 auto;
     }
 
     .hero {
-      background: #0d1f33;
-      color: #ffffff;
-      padding: 72px 0 60px;
-      border-bottom: 4px solid #173b5d;
+      color: #fff;
+      background: linear-gradient(125deg, #222a5f 0%, #4249be 46%, #26a8a4 100%);
+      padding: 88px 0 84px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .hero h1 {
       margin: 0 0 14px;
-      font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+      font-size: clamp(2rem, 5vw, 3.3rem);
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
     }
 
     .hero p {
       margin: 0;
-      max-width: 720px;
-      color: #d5e2f2;
-      font-size: 1.02rem;
+      max-width: 760px;
+      color: #eef3ff;
+      font-size: 1.08rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
     }
 
     main {
-      padding: 34px 0 54px;
+      padding: 38px 0 66px;
     }
 
     .grid {
       display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(20, 40, 75, 0.07);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: var(--shadow);
     }
 
     h2 {
       margin-top: 0;
-      margin-bottom: 12px;
-      font-size: 1.3rem;
-      color: #112a45;
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+      color: #0f1f49;
     }
 
     .card p {
@@ -90,7 +108,7 @@
     }
 
     .project-list li + li {
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .project-list a {
@@ -102,6 +120,10 @@
     .project-list a:hover,
     .project-list a:focus {
       text-decoration: underline;
+    }
+
+    .project-list strong {
+      color: #1b2d59;
     }
 
     .project-detail {
@@ -121,10 +143,11 @@
       text-decoration: none;
       background: var(--accent);
       color: #ffffff;
-      padding: 10px 15px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
       font-weight: 600;
       transition: background-color 0.15s ease-in-out;
+      box-shadow: 0 6px 16px rgba(70, 75, 212, 0.28);
     }
 
     .button:hover,
@@ -132,10 +155,26 @@
       background: var(--accent-hover);
     }
 
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      background: var(--accent-soft);
+      color: #2e3693;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 600;
+    }
+
     footer {
-      border-top: 1px solid var(--border);
-      padding: 20px 0 28px;
-      color: #5f7187;
+      border-top: 1px solid #dde5f5;
+      padding: 24px 0 34px;
+      color: #63728d;
       font-size: 0.94rem;
       text-align: center;
     }
@@ -144,11 +183,11 @@
 <body>
   <header class="hero">
     <div class="container">
+      <span class="hero-badge">AI 109 Portfolio</span>
       <h1>Alexandra Berrick</h1>
       <p>
-        AI 109 student at The Catholic University of America. This site shares course
-        projects, progress, and reflections from my first semester exploring artificial
-        intelligence and coding fundamentals.
+        AI 109 student at The Catholic University of America. This portfolio documents my
+        growth in coding, ethics, and practical AI applications through hands-on class projects.
       </p>
     </div>
   </header>
@@ -159,9 +198,14 @@
         <h2 id="about-heading">About Me</h2>
         <p>
           I am currently in my second semester at The Catholic University of America.
-          While I am new to programming, I value it as an important skill and I am
-          using this course to build a stronger foundation in AI and technology.
+          While I am new to programming, I value it as an important skill and I am using
+          this class to build a foundation in AI concepts and responsible technology use.
         </p>
+        <div class="pill-row">
+          <span class="pill">Beginner coder</span>
+          <span class="pill">AI ethics</span>
+          <span class="pill">Human-centered design</span>
+        </div>
       </section>
 
       <section class="card" aria-labelledby="course-heading">
@@ -177,18 +221,24 @@
       <section class="card" aria-labelledby="projects-heading">
         <h2 id="projects-heading">Projects</h2>
         <ul class="project-list">
-          <li><a href="chatbot.html">Project 2: ELIZA Chatbot</a></li>
+          <li>
+            <strong>Project 1:</strong> This portfolio website (design, structure, and publishing with GitHub Pages).
+          </li>
+          <li>
+            <a href="chatbot.html"><strong>Project 2:</strong> ELIZA Chatbot</a> with DBT-informed prompts.
+          </li>
         </ul>
         <p class="project-detail">
           This version uses DBT-informed, rule-based prompts inspired by core skills:
           mindfulness, distress tolerance, emotion regulation, and interpersonal
           effectiveness. It reflects user input and suggests practical coping steps in
-          an educational format.
+          an educational format, with safety disclaimers and crisis resources.
         </p>
         <div class="actions">
           <a class="button" href="https://github.com/berrick-sketch" target="_blank" rel="noopener noreferrer">
             View GitHub Profile
           </a>
+          <a class="button" href="chatbot.html">Open Project 2</a>
         </div>
       </section>
     </div>

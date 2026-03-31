@@ -6,15 +6,20 @@
   <title>ELIZA Chatbot | Alexandra Berrick</title>
   <style>
     :root {
-      --bg: #f4f7fb;
+      --bg: #f6f8ff;
       --card: #ffffff;
-      --text: #1e293b;
-      --muted: #5a6b80;
-      --accent: #0f4c81;
-      --accent-hover: #0b3a63;
-      --border: #dbe3ee;
-      --bot-bubble: #e9f2ff;
-      --user-bubble: #dff6e5;
+      --text: #132344;
+      --muted: #52617e;
+      --accent: #5b5fef;
+      --accent-hover: #464bd4;
+      --accent-soft: #eef0ff;
+      --border: #d8e2f4;
+      --bot-bubble: #eaf0ff;
+      --user-bubble: #dff7ec;
+      --danger-soft: #fff3ef;
+      --danger-border: #f3c6b8;
+      --danger-text: #8a3f22;
+      --shadow: 0 22px 48px rgba(35, 45, 80, 0.14);
     }
 
     * {
@@ -23,48 +28,98 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
       color: var(--text);
-      background: linear-gradient(160deg, #eef3fa 0%, #f9fbff 40%, #f3f6fb 100%);
+      background:
+        radial-gradient(circle at 0% 0%, #dde5ff 0%, rgba(221, 229, 255, 0) 32%),
+        radial-gradient(circle at 100% 10%, #d5fdf0 0%, rgba(213, 253, 240, 0) 34%),
+        linear-gradient(150deg, #f8f9ff 0%, #f4f8ff 54%, #f8fbff 100%);
       min-height: 100vh;
     }
 
     .container {
-      width: min(920px, 92%);
+      width: min(1080px, 92%);
       margin: 0 auto;
     }
 
     header {
-      background: #0d1f33;
+      background: linear-gradient(130deg, #1e285f 0%, #444abf 48%, #26a2a8 100%);
       color: #fff;
-      border-bottom: 4px solid #173b5d;
-      padding: 40px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 56px 0 58px;
     }
 
     h1 {
       margin: 0 0 10px;
-      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
     }
 
     .subtitle {
       margin: 0;
-      color: #d5e2f2;
+      color: #edf3ff;
+      max-width: 760px;
     }
 
     main {
-      padding: 28px 0 44px;
+      padding: 30px 0 52px;
+    }
+
+    .layout {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.25fr 0.75fr;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 18px;
     }
 
     .chat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(20, 40, 75, 0.07);
       overflow: hidden;
+      padding: 0;
+    }
+
+    .chat-topbar {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: #fbfcff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .top-title {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #304064;
+      font-weight: 700;
+    }
+
+    .status {
+      margin: 0;
+      font-size: 0.86rem;
+      color: #3b4c73;
+      background: var(--accent-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 600;
     }
 
     .chat-window {
-      height: 430px;
+      height: 410px;
       overflow-y: auto;
       padding: 20px;
       display: flex;
@@ -75,8 +130,8 @@
 
     .msg {
       max-width: 82%;
-      padding: 10px 12px;
-      border-radius: 10px;
+      padding: 10px 13px;
+      border-radius: 12px;
       line-height: 1.45;
       border: 1px solid var(--border);
     }
@@ -102,56 +157,164 @@
     #userInput {
       flex: 1;
       padding: 11px 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid #b8c8dd;
       font-size: 1rem;
     }
 
-    button {
+    button,
+    .skill-btn,
+    .link-btn {
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       background: var(--accent);
       color: #fff;
       font-weight: 600;
       padding: 11px 16px;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s ease-in-out;
     }
 
     button:hover,
-    button:focus {
+    button:focus,
+    .skill-btn:hover,
+    .skill-btn:focus,
+    .link-btn:hover,
+    .link-btn:focus {
       background: var(--accent-hover);
     }
 
+    .skills-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 560px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .skill-btn {
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .skill-btn.secondary {
+      background: #8a92ac;
+    }
+
+    .skill-btn.secondary:hover,
+    .skill-btn.secondary:focus {
+      background: #727a94;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .note,
+    .small {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .disclaimer {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--danger-border);
+      background: var(--danger-soft);
+      color: var(--danger-text);
+      font-size: 0.93rem;
+    }
+
+    .resource-list,
+    .source-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .resource-list li + li,
+    .source-list li + li {
+      margin-top: 8px;
+    }
+
+    .resource-list a,
+    .source-list a {
+      color: #3342b2;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .resource-list a:hover,
+    .resource-list a:focus,
+    .source-list a:hover,
+    .source-list a:focus {
+      text-decoration: underline;
+    }
+
     .footer-links {
-      margin-top: 16px;
+      margin-top: 14px;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
     }
 
-    .link-btn {
-      text-decoration: none;
-      color: #fff;
-      background: var(--accent);
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-weight: 600;
+    .infographic-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
     }
 
-    .note {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 0.95rem;
+    @media (max-width: 560px) {
+      .infographic-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-    .disclaimer {
-      margin: 0 0 14px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid #f0d8a8;
-      background: #fff7e8;
-      color: #6b4b12;
-      font-size: 0.95rem;
+    .info-card {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fcfdff;
+      padding: 12px;
+    }
+
+    .info-card h4 {
+      margin: 0 0 6px;
+      font-size: 0.97rem;
+      color: #243665;
+    }
+
+    .progress {
+      margin-top: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #e8edff;
+      overflow: hidden;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #5b5fef, #26a2a8);
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      color: #1b2a52;
+      font-size: 1.05rem;
     }
   </style>
 </head>
@@ -159,29 +322,99 @@
   <header>
     <div class="container">
       <h1>ELIZA-Style Chatbot</h1>
-      <p class="subtitle">A rule-based chatbot using DBT-informed reflection and coping prompts.</p>
+      <p class="subtitle">
+        A DBT-informed, rule-based educational chatbot. Choose a skill focus first, then chat for
+        reflective prompts, coping ideas, and emotion-specific guidance.
+      </p>
     </div>
   </header>
 
   <main>
-    <div class="container">
+    <div class="container layout">
+      <section class="panel stack" aria-label="Chat area">
       <p class="disclaimer">
         Important: This chatbot is an automated program, not a human therapist or crisis responder.
         It is for educational use only and is not a substitute for mental health treatment,
         diagnosis, or emergency intervention.
       </p>
-      <section class="chat-card" aria-label="Chatbot conversation">
+      <div class="chat-card" aria-label="Chatbot conversation">
+        <div class="chat-topbar">
+          <p class="top-title">Project 2: DBT-Informed ELIZA Chatbot</p>
+          <p class="status" id="skillStatus">Skill focus: not selected</p>
+        </div>
         <div class="chat-window" id="chatWindow"></div>
         <form class="composer" id="chatForm">
-          <input id="userInput" type="text" placeholder="Type your message..." autocomplete="off" required>
+          <input id="userInput" type="text" placeholder="Choose a skill, then type your message..." autocomplete="off" required>
           <button type="submit">Send</button>
         </form>
-      </section>
+      </div>
 
       <div class="footer-links">
         <a class="link-btn" href="index.html">Back to Home</a>
       </div>
-      <p class="note">If you are in immediate danger or crisis, contact local emergency services right away.</p>
+      <p class="note">If you are in immediate danger or crisis, call 911 (U.S.) or your local emergency number immediately.</p>
+      </section>
+
+      <aside class="stack" aria-label="Skills and resources">
+        <section class="panel">
+          <h3>Choose Your DBT Skill</h3>
+          <p class="small">Pick one to start. You can change it any time.</p>
+          <div class="skills-grid" id="skillButtons">
+            <button class="skill-btn" data-skill="mindfulness" type="button">Mindfulness</button>
+            <button class="skill-btn" data-skill="distress tolerance" type="button">Distress Tolerance</button>
+            <button class="skill-btn" data-skill="emotion regulation" type="button">Emotion Regulation</button>
+            <button class="skill-btn" data-skill="interpersonal effectiveness" type="button">Interpersonal Effectiveness</button>
+          </div>
+          <div class="footer-links">
+            <button class="skill-btn secondary" id="clearSkillBtn" type="button">Clear Skill Focus</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Educational Infographics</h3>
+          <div class="infographic-grid">
+            <article class="info-card">
+              <h4>STOP Skill</h4>
+              <p class="small">S: Stop, T: Take a step back, O: Observe, P: Proceed mindfully.</p>
+            </article>
+            <article class="info-card">
+              <h4>TIPP Skill</h4>
+              <p class="small">Temperature, Intense exercise, Paced breathing, Paired relaxation.</p>
+            </article>
+            <article class="info-card">
+              <h4>Emotion Check</h4>
+              <p class="small">Name the emotion and rate intensity 0-10 before and after a skill.</p>
+              <div class="progress"><span style="width: 68%;"></span></div>
+            </article>
+            <article class="info-card">
+              <h4>DEAR MAN</h4>
+              <p class="small">Describe, Express, Assert, Reinforce, Mindful, Appear confident, Negotiate.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Mental Health Resources (U.S.)</h3>
+          <ul class="resource-list">
+            <li><a href="tel:988">988 Suicide & Crisis Lifeline - Call or text 988</a></li>
+            <li><a href="sms:741741?body=HOME">Crisis Text Line - Text HOME to 741741</a></li>
+            <li><a href="tel:18006624357">SAMHSA National Helpline - 1-800-662-4357</a></li>
+            <li><a href="https://www.988lifeline.org/" target="_blank" rel="noopener noreferrer">988lifeline.org</a></li>
+            <li><a href="https://www.nami.org/help" target="_blank" rel="noopener noreferrer">NAMI HelpLine and support options</a></li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <h3>Sources</h3>
+          <p class="small">The prompts are adapted from well-known DBT teaching frameworks and reputable organizations:</p>
+          <ul class="source-list">
+            <li><a href="https://www.samhsa.gov/mental-health" target="_blank" rel="noopener noreferrer">SAMHSA (Substance Abuse and Mental Health Services Administration)</a></li>
+            <li><a href="https://www.apa.org/topics/psychotherapy/dialectical-behavior-therapy" target="_blank" rel="noopener noreferrer">American Psychological Association - DBT overview</a></li>
+            <li><a href="https://www.nimh.nih.gov/health/topics/psychotherapies" target="_blank" rel="noopener noreferrer">National Institute of Mental Health - Psychotherapies</a></li>
+            <li><a href="https://www.cdc.gov/mental-health/about/index.html" target="_blank" rel="noopener noreferrer">Centers for Disease Control and Prevention (CDC) - Mental health information</a></li>
+          </ul>
+        </section>
+      </aside>
     </div>
   </main>
 
@@ -189,6 +422,34 @@
     const chatWindow = document.getElementById("chatWindow");
     const chatForm = document.getElementById("chatForm");
     const userInput = document.getElementById("userInput");
+    const skillButtons = document.getElementById("skillButtons");
+    const clearSkillBtn = document.getElementById("clearSkillBtn");
+    const skillStatus = document.getElementById("skillStatus");
+
+    let selectedSkill = "";
+
+    const skillSuggestions = {
+      mindfulness: [
+        "Mindfulness prompt: Describe what is happening right now using only observable facts.",
+        "Mindfulness prompt: Name 3 thoughts, 3 body sensations, and 3 external details without judgment.",
+        "Mindfulness prompt: Try one minute of slow breathing and then describe what shifted."
+      ],
+      "distress tolerance": [
+        "Distress tolerance prompt: Try STOP first, then tell me what you observed.",
+        "Distress tolerance prompt: Choose one TIPP action you can do in the next 2 minutes.",
+        "Distress tolerance prompt: What healthy distraction could help you get through this intense moment?"
+      ],
+      "emotion regulation": [
+        "Emotion regulation prompt: Name the emotion, rate it 0-10, and identify the trigger.",
+        "Emotion regulation prompt: What is one opposite action you can practice safely right now?",
+        "Emotion regulation prompt: What is one small mastery task you can complete today?"
+      ],
+      "interpersonal effectiveness": [
+        "Interpersonal effectiveness prompt: What request do you want to make clearly and respectfully?",
+        "Interpersonal effectiveness prompt: Start with DEAR MAN - first, Describe the facts in one sentence.",
+        "Interpersonal effectiveness prompt: What boundary would protect your self-respect in this situation?"
+      ]
+    };
 
     const reflections = [
       {
@@ -196,31 +457,35 @@
         replies: [
           "Thank you for naming that feeling. On a 0-10 scale, how intense is \"$2\" right now?",
           "That sounds difficult. A DBT mindfulness step is to notice \"$2\" without judging it as good or bad.",
-          "When \"$2\" shows up, what body signals do you notice first?"
+          "When \"$2\" shows up, what body signals do you notice first?",
+          "Can you separate facts from interpretations about feeling \"$2\"?"
         ]
       },
       {
-        pattern: /\b(anxious|panic|overwhelm|stressed)\b/i,
+        pattern: /\b(anxious|panic|overwhelm|overwhelmed|stressed|nervous)\b/i,
         replies: [
           "For intense stress, DBT distress tolerance suggests paced breathing: in for 4, out for 6, for one minute.",
           "Would a short TIPP skill help: cold water on your face, then 20-30 seconds of brisk movement?",
-          "Try grounding with 5-4-3-2-1: name 5 things you see, 4 feel, 3 hear, 2 smell, 1 taste."
+          "Try grounding with 5-4-3-2-1: name 5 things you see, 4 feel, 3 hear, 2 smell, 1 taste.",
+          "Anxiety can shrink focus. What is one immediate action that keeps you safe and steady?"
         ]
       },
       {
-        pattern: /\b(angry|mad|furious|rage)\b/i,
+        pattern: /\b(angry|mad|furious|rage|irritated|frustrated)\b/i,
         replies: [
           "Strong anger can narrow choices. DBT recommends a STOP pause: Stop, Take a step back, Observe, Proceed mindfully.",
           "Would opposite action fit here: soften your voice, unclench your hands, and step away briefly?",
-          "What value do you want to act from in this moment, even with anger present?"
+          "What value do you want to act from in this moment, even with anger present?",
+          "Can you channel this energy into a clear boundary instead of escalation?"
         ]
       },
       {
-        pattern: /\b(sad|depressed|hopeless|lonely)\b/i,
+        pattern: /\b(sad|depressed|hopeless|lonely|down|empty|grief)\b/i,
         replies: [
           "I hear that this feels heavy. A DBT emotion regulation step is to do one small mastery task in the next hour.",
           "Could you add one pleasant activity today, even if motivation is low?",
-          "What would self-validation sound like right now, in one sentence?"
+          "What would self-validation sound like right now, in one sentence?",
+          "What support person could you contact today, even briefly?"
         ]
       },
       {
@@ -228,23 +493,42 @@
         replies: [
           "It makes sense this feels hard. What is one tiny next step toward \"$2\"?",
           "Could we shift from \"I cannot $2\" to \"I can practice one part of $2\"?",
-          "What support or skill would make \"$2\" 10% easier?"
+          "What support or skill would make \"$2\" 10% easier?",
+          "What would a compassionate coach say about \"$2\" right now?"
         ]
       },
       {
-        pattern: /\b(relationship|friend|partner|roommate|family)\b/i,
+        pattern: /\b(relationship|friend|partner|roommate|family|coworker|classmate)\b/i,
         replies: [
           "For relationships, DBT uses DEAR MAN. What is the specific request you want to make?",
           "Can you describe just the facts first (Describe), then your feeling (Express)?",
-          "What boundary or need would help this relationship feel safer?"
+          "What boundary or need would help this relationship feel safer?",
+          "What is your goal: get objective, keep relationship, or keep self-respect?"
         ]
       },
       {
-        pattern: /\b(guilty|ashamed|embarrassed)\b/i,
+        pattern: /\b(guilty|ashamed|embarrassed|worthless|failure)\b/i,
         replies: [
           "Let us check the facts: what evidence supports this feeling, and what evidence does not?",
           "A DBT self-respect check is FAST: be Fair, no Apologies for existing, Stick to values, be Truthful.",
-          "What would you say to a friend feeling this same shame?"
+          "What would you say to a friend feeling this same shame?",
+          "Can both things be true: you made a mistake and you still deserve care?"
+        ]
+      },
+      {
+        pattern: /\b(confused|uncertain|lost|stuck)\b/i,
+        replies: [
+          "When things feel unclear, try one step: what is the next smallest decision you can make?",
+          "Would it help to list options, then choose the one most aligned with your values?",
+          "What information do you need before taking the next step?"
+        ]
+      },
+      {
+        pattern: /\b(happy|excited|grateful|proud|calm)\b/i,
+        replies: [
+          "That is great to hear. How can you reinforce what helped create this feeling?",
+          "Can you take a mindful moment to savor this emotion for 20 seconds?",
+          "What skill or habit do you want to keep using since it is helping?"
         ]
       },
       {
@@ -262,7 +546,8 @@
       "What are the facts of the situation, separate from assumptions?",
       "Would you like a mindfulness prompt, a distress tolerance skill, or an interpersonal script?",
       "What is one effective action you can take in the next 10 minutes?",
-      "Can you validate your feeling and still choose the next skillful step?"
+      "Can you validate your feeling and still choose the next skillful step?",
+      "Would you like to focus on body regulation, thoughts, emotions, or communication first?"
     ];
 
     const limitationReplies = [
@@ -287,9 +572,18 @@
       return text.replace(/\s+/g, " ").trim();
     }
 
+    function setSkill(skillName) {
+      selectedSkill = skillName;
+      if (selectedSkill) {
+        skillStatus.textContent = "Skill focus: " + selectedSkill;
+      } else {
+        skillStatus.textContent = "Skill focus: not selected";
+      }
+    }
+
     function shouldUseLimitationResponse(message) {
       const wordCount = message.split(/\s+/).filter(Boolean).length;
-      const complexTopic = /\b(diagnose|diagnosis|medication|prescription|bipolar|schizophrenia|trauma|ptsd|suicid|self-harm|legal|court)\b/i.test(message);
+      const complexTopic = /\b(diagnose|diagnosis|medication|prescription|bipolar|schizophrenia|psychosis|trauma|ptsd|suicid|self-harm|homicid|legal|court)\b/i.test(message);
       const longQuestion = message.includes("?") && wordCount > 20;
       return complexTopic || longQuestion;
     }
@@ -300,8 +594,20 @@
         return "Please type something so we can continue.";
       }
 
+      if (!selectedSkill) {
+        return "Please choose a DBT skill first (Mindfulness, Distress Tolerance, Emotion Regulation, or Interpersonal Effectiveness).";
+      }
+
       if (shouldUseLimitationResponse(message)) {
         return choose(limitationReplies);
+      }
+
+      if (/^\s*(skill|help|what should i do)\b/i.test(message)) {
+        return choose(skillSuggestions[selectedSkill]);
+      }
+
+      if (selectedSkill && Math.random() < 0.3) {
+        return choose(skillSuggestions[selectedSkill]);
       }
 
       for (const rule of reflections) {
@@ -314,6 +620,21 @@
 
       return choose(defaultReplies);
     }
+
+    skillButtons.addEventListener("click", function (event) {
+      const btn = event.target.closest("[data-skill]");
+      if (!btn) {
+        return;
+      }
+      setSkill(btn.getAttribute("data-skill"));
+      addMessage("bot", "Skill selected: " + selectedSkill + ". You can start chatting now.");
+      userInput.focus();
+    });
+
+    clearSkillBtn.addEventListener("click", function () {
+      setSkill("");
+      addMessage("bot", "Skill focus cleared. Please choose a DBT skill before continuing.");
+    });
 
     chatForm.addEventListener("submit", function (event) {
       event.preventDefault();
@@ -333,7 +654,7 @@
       userInput.focus();
     });
 
-    addMessage("bot", "Hello. I am an ELIZA-style chatbot, not a human therapist. I can offer DBT-informed educational prompts. What emotion is strongest for you right now?");
+    addMessage("bot", "Hello. I am an automated ELIZA-style chatbot, not a human therapist. Please choose a DBT skill to begin.");
   </script>
 </body>
 </html>
