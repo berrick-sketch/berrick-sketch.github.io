@@ -331,6 +331,7 @@
       border-radius: 10px;
       border: 1px solid #dbe5fb;
       background: #fff;
+      cursor: zoom-in;
     }
 
     .progress {
@@ -351,6 +352,70 @@
       margin: 0 0 8px;
       color: #1b2a52;
       font-size: 1.05rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(14, 20, 44, 0.78);
+      z-index: 1000;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      width: min(920px, 96vw);
+      max-height: 92vh;
+      overflow: auto;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #d8e2f4;
+      box-shadow: 0 26px 60px rgba(12, 22, 52, 0.35);
+      padding: 14px;
+    }
+
+    .lightbox-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .lightbox-head h4 {
+      margin: 0;
+      color: #1b2a52;
+      font-size: 1rem;
+    }
+
+    .close-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 8px 12px;
+      background: #6a7188;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+      background: #565e76;
+    }
+
+    #lightboxBody svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid #dbe5fb;
+      background: #fff;
     }
   </style>
 </head>
@@ -412,7 +477,7 @@
           <div class="infographic-grid">
             <article class="info-card">
               <h4>STOP Skill</h4>
-              <svg viewBox="0 0 300 120" aria-hidden="true">
+              <svg viewBox="0 0 300 120" aria-hidden="true" class="zoomable" data-title="STOP Skill">
                 <rect x="10" y="15" width="62" height="90" rx="10" fill="#eef1ff"></rect>
                 <rect x="83" y="15" width="62" height="90" rx="10" fill="#e6fff6"></rect>
                 <rect x="156" y="15" width="62" height="90" rx="10" fill="#fff8e7"></rect>
@@ -430,7 +495,7 @@
             </article>
             <article class="info-card">
               <h4>TIPP Skill</h4>
-              <svg viewBox="0 0 300 120" aria-hidden="true">
+              <svg viewBox="0 0 300 120" aria-hidden="true" class="zoomable" data-title="TIPP Skill">
                 <line x1="45" y1="90" x2="45" y2="30" stroke="#4a5cc7" stroke-width="8"></line>
                 <circle cx="45" cy="25" r="10" fill="#4a5cc7"></circle>
                 <text x="75" y="38" font-size="12" fill="#304064">Temperature reset</text>
@@ -442,7 +507,7 @@
             </article>
             <article class="info-card">
               <h4>Emotion Check</h4>
-              <svg viewBox="0 0 300 120" aria-hidden="true">
+              <svg viewBox="0 0 300 120" aria-hidden="true" class="zoomable" data-title="Emotion Check">
                 <rect x="20" y="74" width="52" height="26" rx="6" fill="#dce7ff"></rect>
                 <rect x="80" y="58" width="52" height="42" rx="6" fill="#bfd2ff"></rect>
                 <rect x="140" y="44" width="52" height="56" rx="6" fill="#97b3ff"></rect>
@@ -454,7 +519,7 @@
             </article>
             <article class="info-card">
               <h4>DEAR MAN</h4>
-              <svg viewBox="0 0 300 120" aria-hidden="true">
+              <svg viewBox="0 0 300 120" aria-hidden="true" class="zoomable" data-title="DEAR MAN">
                 <rect x="12" y="16" width="276" height="24" rx="8" fill="#eef0ff"></rect>
                 <rect x="12" y="48" width="276" height="24" rx="8" fill="#e6fff6"></rect>
                 <rect x="12" y="80" width="276" height="24" rx="8" fill="#fff6e9"></rect>
@@ -491,6 +556,15 @@
       </aside>
     </div>
   </main>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+      <div class="lightbox-head">
+        <h4 id="lightboxTitle">Infographic</h4>
+        <button type="button" class="close-btn" id="closeLightbox">Close</button>
+      </div>
+      <div id="lightboxBody"></div>
+    </div>
+  </div>
 
   <script>
     const chatWindow = document.getElementById("chatWindow");
@@ -500,6 +574,10 @@
     const skillButtons = document.getElementById("skillButtons");
     const clearSkillBtn = document.getElementById("clearSkillBtn");
     const skillStatus = document.getElementById("skillStatus");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxBody = document.getElementById("lightboxBody");
+    const lightboxTitle = document.getElementById("lightboxTitle");
+    const closeLightbox = document.getElementById("closeLightbox");
 
     let selectedSkill = "";
     const exhaustionMessage = "I have now used all of my currently programmed responses. Please reset the conversation, choose a new skill, or contact a qualified professional for more personalized support.";
@@ -829,6 +907,34 @@
         return;
       }
       handleUserInput(choice);
+    });
+
+    document.querySelectorAll(".zoomable").forEach(function (svg) {
+      svg.addEventListener("click", function () {
+        lightboxTitle.textContent = svg.getAttribute("data-title") || "Infographic";
+        lightboxBody.innerHTML = "";
+        lightboxBody.appendChild(svg.cloneNode(true));
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    closeLightbox.addEventListener("click", function () {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxBody.innerHTML = "";
+    });
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) {
+        closeLightbox.click();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox.click();
+      }
     });
 
     chatForm.addEventListener("submit", function (event) {
