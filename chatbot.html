@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELIZA Chatbot | Alexandra Berrick</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #5a6b80;
+      --accent: #0f4c81;
+      --accent-hover: #0b3a63;
+      --border: #dbe3ee;
+      --bot-bubble: #e9f2ff;
+      --user-bubble: #dff6e5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(160deg, #eef3fa 0%, #f9fbff 40%, #f3f6fb 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(920px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      background: #0d1f33;
+      color: #fff;
+      border-bottom: 4px solid #173b5d;
+      padding: 40px 0;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #d5e2f2;
+    }
+
+    main {
+      padding: 28px 0 44px;
+    }
+
+    .chat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(20, 40, 75, 0.07);
+      overflow: hidden;
+    }
+
+    .chat-window {
+      height: 430px;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #fbfdff;
+    }
+
+    .msg {
+      max-width: 82%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      line-height: 1.45;
+      border: 1px solid var(--border);
+    }
+
+    .msg.bot {
+      align-self: flex-start;
+      background: var(--bot-bubble);
+    }
+
+    .msg.user {
+      align-self: flex-end;
+      background: var(--user-bubble);
+    }
+
+    .composer {
+      display: flex;
+      gap: 10px;
+      padding: 14px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid #b8c8dd;
+      font-size: 1rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      padding: 11px 16px;
+      cursor: pointer;
+    }
+
+    button:hover,
+    button:focus {
+      background: var(--accent-hover);
+    }
+
+    .footer-links {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .link-btn {
+      text-decoration: none;
+      color: #fff;
+      background: var(--accent);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>ELIZA-Style Chatbot</h1>
+      <p class="subtitle">A simple reflective chatbot built with HTML, CSS, and JavaScript.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="chat-card" aria-label="Chatbot conversation">
+        <div class="chat-window" id="chatWindow"></div>
+        <form class="composer" id="chatForm">
+          <input id="userInput" type="text" placeholder="Type your message..." autocomplete="off" required>
+          <button type="submit">Send</button>
+        </form>
+      </section>
+
+      <div class="footer-links">
+        <a class="link-btn" href="index.html">Back to Home</a>
+      </div>
+      <p class="note">This bot is rule-based, so it does not learn and may repeat patterns.</p>
+    </div>
+  </main>
+
+  <script>
+    const chatWindow = document.getElementById("chatWindow");
+    const chatForm = document.getElementById("chatForm");
+    const userInput = document.getElementById("userInput");
+
+    const reflections = [
+      { pattern: /\b(i feel|i am feeling)\b\s*(.*)/i, replies: ["Why do you feel $2?", "How long have you felt $2?", "What do you think is causing you to feel $2?"] },
+      { pattern: /\b(i need)\b\s*(.*)/i, replies: ["Why do you need $2?", "What would it mean if you got $2?", "What is stopping you from getting $2?"] },
+      { pattern: /\b(i want)\b\s*(.*)/i, replies: ["What would it mean to get $2?", "Why do you want $2?", "How would your life change if you had $2?"] },
+      { pattern: /\b(i can't|i cannot)\b\s*(.*)/i, replies: ["What makes you think you cannot $2?", "Have you tried to $2 before?", "What might help you to $2?"] },
+      { pattern: /\b(my mother|my father|my family)\b/i, replies: ["Tell me more about your family.", "How does your family affect you?", "What comes to mind when you think about your family?"] },
+      { pattern: /\b(sorry)\b/i, replies: ["There is no need to apologize.", "Apologies are not necessary here.", "What made you say sorry?"] },
+      { pattern: /\b(hello|hi|hey)\b/i, replies: ["Hello. How are you feeling today?", "Hi there. What is on your mind?", "Hey. What would you like to discuss?"] },
+      { pattern: /\b(because)\b/i, replies: ["Is that the real reason?", "What other reasons come to mind?", "Does that reason fully explain it?"] },
+      { pattern: /\b(yes)\b/i, replies: ["You seem quite certain.", "I understand. Can you tell me more?", "What makes you so sure?"] },
+      { pattern: /\b(no)\b/i, replies: ["Why not?", "What makes you say no?", "Can you expand on that?"] }
+    ];
+
+    const defaultReplies = [
+      "Please tell me more.",
+      "How does that make you feel?",
+      "Can you elaborate on that?",
+      "Why do you say that?",
+      "That is interesting. Please continue."
+    ];
+
+    function addMessage(role, text) {
+      const bubble = document.createElement("div");
+      bubble.className = "msg " + role;
+      bubble.textContent = text;
+      chatWindow.appendChild(bubble);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function choose(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function cleanFragment(text) {
+      return text.replace(/\s+/g, " ").trim();
+    }
+
+    function generateReply(input) {
+      const message = input.trim();
+      if (!message) {
+        return "Please type something so we can continue.";
+      }
+
+      for (const rule of reflections) {
+        const match = message.match(rule.pattern);
+        if (match) {
+          const template = choose(rule.replies);
+          return template.replace(/\$2/g, cleanFragment(match[2] || "that"));
+        }
+      }
+
+      return choose(defaultReplies);
+    }
+
+    chatForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const text = userInput.value.trim();
+      if (!text) {
+        return;
+      }
+
+      addMessage("user", text);
+      const response = generateReply(text);
+
+      setTimeout(function () {
+        addMessage("bot", response);
+      }, 220);
+
+      userInput.value = "";
+      userInput.focus();
+    });
+
+    addMessage("bot", "Hello, I am an ELIZA-style chatbot. How are you feeling today?");
+  </script>
+</body>
+</html>
