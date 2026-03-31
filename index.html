@@ -1,9 +1,181 @@
-<h1>AI 109 - Alexandra Berrick</h1>
-This is a website for my AI 109 class.<p>
-If you (miraculously) found this website on the corner of the internet, I am sorry that you have wasted your time.<p>
-As of now, this website serves no function other than being a project for school. Part of the project requires me to make the website public. I am enrolled in AI 109 Enter the World of Artificial Intelligence: Computing Principles, Ethics, and Impact at The Catholic University of America. I am taking this course from 01/12/2026 through 05/09/2026. This is my first project for the course and I am very unfamiliar with coding.<p></p><p></p>
-<h2>About Me</h2>
-I am, as of February 2026, in my second semester at The Catholic University of America. I have absolutely zero interest in coding (as of 2/26) but consider it an important life skill. I am enrolled in this class because my mom wanted me to take an AI class. I enjoy singing karaoke. I also enjoy having an intact ACL. I hope Dr. Kelley is laughing while reading this.<p></p>
-<h2>Projects</h2>
-This is a placeholder entry for Project 1, Part 2: Javascript Game (coming soon)<p></p>
-Link to my GitHub profile: <a href="URL">https://github.com/berrick-sketch</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexandra Berrick | AI 109</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #475569;
+      --accent: #0f4c81;
+      --accent-hover: #0b3a63;
+      --border: #dbe3ee;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(160deg, #eef3fa 0%, #f9fbff 40%, #f3f6fb 100%);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(960px, 92%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: #0d1f33;
+      color: #ffffff;
+      padding: 72px 0 60px;
+      border-bottom: 4px solid #173b5d;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 720px;
+      color: #d5e2f2;
+      font-size: 1.02rem;
+    }
+
+    main {
+      padding: 34px 0 54px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(20, 40, 75, 0.07);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+      color: #112a45;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .project-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .project-list li + li {
+      margin-top: 8px;
+    }
+
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: background-color 0.15s ease-in-out;
+    }
+
+    .button:hover,
+    .button:focus {
+      background: var(--accent-hover);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 0 28px;
+      color: #5f7187;
+      font-size: 0.94rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1>Alexandra Berrick</h1>
+      <p>
+        AI 109 student at The Catholic University of America. This site shares course
+        projects, progress, and reflections from my first semester exploring artificial
+        intelligence and coding fundamentals.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container grid">
+      <section class="card" aria-labelledby="about-heading">
+        <h2 id="about-heading">About Me</h2>
+        <p>
+          I am currently in my second semester at The Catholic University of America.
+          While I am new to programming, I value it as an important skill and I am
+          using this course to build a stronger foundation in AI and technology.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="course-heading">
+        <h2 id="course-heading">Course Information</h2>
+        <p>
+          <strong>Course:</strong> AI 109 - Enter the World of Artificial Intelligence:
+          Computing Principles, Ethics, and Impact
+          <br>
+          <strong>Term:</strong> January 12, 2026 to May 9, 2026
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">Projects</h2>
+        <ul class="project-list">
+          <li>Project 1, Part 2: JavaScript Game (coming soon)</li>
+        </ul>
+        <div class="actions">
+          <a class="button" href="https://github.com/berrick-sketch" target="_blank" rel="noopener noreferrer">
+            View GitHub Profile
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      Built for AI 109 coursework.
+    </div>
+  </footer>
+</body>
+</html>
