@@ -143,18 +143,33 @@
       color: var(--muted);
       font-size: 0.95rem;
     }
+
+    .disclaimer {
+      margin: 0 0 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #f0d8a8;
+      background: #fff7e8;
+      color: #6b4b12;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
       <h1>ELIZA-Style Chatbot</h1>
-      <p class="subtitle">A simple reflective chatbot built with HTML, CSS, and JavaScript.</p>
+      <p class="subtitle">A rule-based chatbot using DBT-informed reflection and coping prompts.</p>
     </div>
   </header>
 
   <main>
     <div class="container">
+      <p class="disclaimer">
+        Important: This chatbot is an automated program, not a human therapist or crisis responder.
+        It is for educational use only and is not a substitute for mental health treatment,
+        diagnosis, or emergency intervention.
+      </p>
       <section class="chat-card" aria-label="Chatbot conversation">
         <div class="chat-window" id="chatWindow"></div>
         <form class="composer" id="chatForm">
@@ -166,7 +181,7 @@
       <div class="footer-links">
         <a class="link-btn" href="index.html">Back to Home</a>
       </div>
-      <p class="note">This bot is rule-based, so it does not learn and may repeat patterns.</p>
+      <p class="note">If you are in immediate danger or crisis, contact local emergency services right away.</p>
     </div>
   </main>
 
@@ -176,24 +191,84 @@
     const userInput = document.getElementById("userInput");
 
     const reflections = [
-      { pattern: /\b(i feel|i am feeling)\b\s*(.*)/i, replies: ["Why do you feel $2?", "How long have you felt $2?", "What do you think is causing you to feel $2?"] },
-      { pattern: /\b(i need)\b\s*(.*)/i, replies: ["Why do you need $2?", "What would it mean if you got $2?", "What is stopping you from getting $2?"] },
-      { pattern: /\b(i want)\b\s*(.*)/i, replies: ["What would it mean to get $2?", "Why do you want $2?", "How would your life change if you had $2?"] },
-      { pattern: /\b(i can't|i cannot)\b\s*(.*)/i, replies: ["What makes you think you cannot $2?", "Have you tried to $2 before?", "What might help you to $2?"] },
-      { pattern: /\b(my mother|my father|my family)\b/i, replies: ["Tell me more about your family.", "How does your family affect you?", "What comes to mind when you think about your family?"] },
-      { pattern: /\b(sorry)\b/i, replies: ["There is no need to apologize.", "Apologies are not necessary here.", "What made you say sorry?"] },
-      { pattern: /\b(hello|hi|hey)\b/i, replies: ["Hello. How are you feeling today?", "Hi there. What is on your mind?", "Hey. What would you like to discuss?"] },
-      { pattern: /\b(because)\b/i, replies: ["Is that the real reason?", "What other reasons come to mind?", "Does that reason fully explain it?"] },
-      { pattern: /\b(yes)\b/i, replies: ["You seem quite certain.", "I understand. Can you tell me more?", "What makes you so sure?"] },
-      { pattern: /\b(no)\b/i, replies: ["Why not?", "What makes you say no?", "Can you expand on that?"] }
+      {
+        pattern: /\b(i feel|i am feeling)\b\s*(.*)/i,
+        replies: [
+          "Thank you for naming that feeling. On a 0-10 scale, how intense is \"$2\" right now?",
+          "That sounds difficult. A DBT mindfulness step is to notice \"$2\" without judging it as good or bad.",
+          "When \"$2\" shows up, what body signals do you notice first?"
+        ]
+      },
+      {
+        pattern: /\b(anxious|panic|overwhelm|stressed)\b/i,
+        replies: [
+          "For intense stress, DBT distress tolerance suggests paced breathing: in for 4, out for 6, for one minute.",
+          "Would a short TIPP skill help: cold water on your face, then 20-30 seconds of brisk movement?",
+          "Try grounding with 5-4-3-2-1: name 5 things you see, 4 feel, 3 hear, 2 smell, 1 taste."
+        ]
+      },
+      {
+        pattern: /\b(angry|mad|furious|rage)\b/i,
+        replies: [
+          "Strong anger can narrow choices. DBT recommends a STOP pause: Stop, Take a step back, Observe, Proceed mindfully.",
+          "Would opposite action fit here: soften your voice, unclench your hands, and step away briefly?",
+          "What value do you want to act from in this moment, even with anger present?"
+        ]
+      },
+      {
+        pattern: /\b(sad|depressed|hopeless|lonely)\b/i,
+        replies: [
+          "I hear that this feels heavy. A DBT emotion regulation step is to do one small mastery task in the next hour.",
+          "Could you add one pleasant activity today, even if motivation is low?",
+          "What would self-validation sound like right now, in one sentence?"
+        ]
+      },
+      {
+        pattern: /\b(i can't|i cannot)\b\s*(.*)/i,
+        replies: [
+          "It makes sense this feels hard. What is one tiny next step toward \"$2\"?",
+          "Could we shift from \"I cannot $2\" to \"I can practice one part of $2\"?",
+          "What support or skill would make \"$2\" 10% easier?"
+        ]
+      },
+      {
+        pattern: /\b(relationship|friend|partner|roommate|family)\b/i,
+        replies: [
+          "For relationships, DBT uses DEAR MAN. What is the specific request you want to make?",
+          "Can you describe just the facts first (Describe), then your feeling (Express)?",
+          "What boundary or need would help this relationship feel safer?"
+        ]
+      },
+      {
+        pattern: /\b(guilty|ashamed|embarrassed)\b/i,
+        replies: [
+          "Let us check the facts: what evidence supports this feeling, and what evidence does not?",
+          "A DBT self-respect check is FAST: be Fair, no Apologies for existing, Stick to values, be Truthful.",
+          "What would you say to a friend feeling this same shame?"
+        ]
+      },
+      {
+        pattern: /\b(hello|hi|hey)\b/i,
+        replies: [
+          "Hi. We can use DBT-style reflection here. What emotion is strongest right now?",
+          "Hello. What situation are you trying to handle today?",
+          "Hey. If helpful, we can pick one skill: mindfulness, distress tolerance, emotion regulation, or interpersonal effectiveness."
+        ]
+      }
     ];
 
     const defaultReplies = [
-      "Please tell me more.",
-      "How does that make you feel?",
-      "Can you elaborate on that?",
-      "Why do you say that?",
-      "That is interesting. Please continue."
+      "What emotion is most present right now, and how intense is it (0-10)?",
+      "What are the facts of the situation, separate from assumptions?",
+      "Would you like a mindfulness prompt, a distress tolerance skill, or an interpersonal script?",
+      "What is one effective action you can take in the next 10 minutes?",
+      "Can you validate your feeling and still choose the next skillful step?"
+    ];
+
+    const limitationReplies = [
+      "I may not understand this fully because I am a rule-based chatbot with limited programming.",
+      "That seems beyond what I can reliably interpret. I am not a human clinician, and my responses are limited by my programming.",
+      "I am sorry, but this question is outside my current abilities. Please consider speaking with a qualified mental health professional for personalized support."
     ];
 
     function addMessage(role, text) {
@@ -212,10 +287,21 @@
       return text.replace(/\s+/g, " ").trim();
     }
 
+    function shouldUseLimitationResponse(message) {
+      const wordCount = message.split(/\s+/).filter(Boolean).length;
+      const complexTopic = /\b(diagnose|diagnosis|medication|prescription|bipolar|schizophrenia|trauma|ptsd|suicid|self-harm|legal|court)\b/i.test(message);
+      const longQuestion = message.includes("?") && wordCount > 20;
+      return complexTopic || longQuestion;
+    }
+
     function generateReply(input) {
       const message = input.trim();
       if (!message) {
         return "Please type something so we can continue.";
+      }
+
+      if (shouldUseLimitationResponse(message)) {
+        return choose(limitationReplies);
       }
 
       for (const rule of reflections) {
@@ -247,7 +333,7 @@
       userInput.focus();
     });
 
-    addMessage("bot", "Hello, I am an ELIZA-style chatbot. How are you feeling today?");
+    addMessage("bot", "Hello. I am an ELIZA-style chatbot, not a human therapist. I can offer DBT-informed educational prompts. What emotion is strongest for you right now?");
   </script>
 </body>
 </html>
